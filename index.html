@@ -1,1 +1,528 @@
-<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><style type="text/css">ol{margin:0;padding:0}table td,table th{padding:0}.c0{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c1{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c3{background-color:#ffffff;max-width:451.4pt;padding:72pt 72pt 72pt 72pt}.c2{height:11pt}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style></head><body class="c3 doc-content"><p class="c1"><span class="c0">&lt;!DOCTYPE html&gt;</span></p><p class="c1"><span class="c0">&lt;html lang=&quot;zh-TW&quot;&gt;</span></p><p class="c1"><span class="c0">&lt;head&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;meta charset=&quot;UTF-8&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;title&gt;&#129528; LITTLE NOOK POS (Pro &#20462;&#27491;&#29256;)&lt;/title&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;script src=&quot;https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js&quot;&gt;&lt;/script&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;script src=&quot;https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js&quot;&gt;&lt;/script&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js&quot;&gt;&lt;/script&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;style&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; :root { --main-brown: #b0a496; --bg-cream: #fcf8f5; --accent-brown: #8c7b6c; --price-red: #d9534f; --profit-green: #6b8e23; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; body { font-family: sans-serif; background: var(--bg-cream); margin: 0; display: flex; flex-direction: column; height: 100vh; color: #5d5246; overflow: hidden; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; header { background: var(--main-brown); color: white; padding: 12px; text-align: center; font-size: 1.3em; font-weight: bold; flex-shrink: 0; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .nav-bar { background: #e8e0d9; padding: 10px; display: flex; gap: 10px; overflow-x: auto; border-bottom: 2px solid #d1c7bc; flex-shrink: 0; align-items: center; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .nav-btn { background: white; border: 1px solid #d1c7bc; padding: 8px 18px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 1.1em; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .sync-btn { background: #ff9800; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-left: auto; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .main-content { display: flex; flex: 1; overflow: hidden; padding: 10px; gap: 10px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .item-area { flex: 1.8; overflow-y: auto; background: white; border-radius: 15px; padding: 15px; border: 2px solid #e8e0d9; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .cat-title { background: #fdf5f0; padding: 8px 15px; border-radius: 20px; margin: 15px 0 8px; font-weight: bold; border-left: 8px solid var(--main-brown); font-size: 1.2em; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 10px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .p-btn { background: white; border: 1px solid #f0e6dd; border-radius: 12px; padding: 10px 5px; text-align: center; cursor: pointer; box-shadow: 2px 2px 0 #e8e0d9; min-height: 90px; display: flex; flex-direction: column; justify-content: center; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .p-name { font-size: 0.85em; font-weight: bold; margin-bottom: 5px; height: 2.8em; overflow: hidden; line-height: 1.4; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .p-price { color: #c2966d; font-size: 1.2em; font-weight: bold; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .p-stock { font-size: 0.8em; color: #999; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .checkout-area { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 320px; overflow-y: auto; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .card { background: white; border-radius: 15px; padding: 12px; border: 2px solid #e8e0d9; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; #cart-list { max-height: 200px; overflow-y: auto; border-bottom: 2px dashed #e8e0d9; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 5px; font-size: 1.1em; border-bottom: 1px solid #eee; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .big-input { font-size: 1.8em; padding: 12px; width: 100%; border-radius: 10px; border: 2px solid #d1c7bc; text-align: right; box-sizing: border-box; background: #fffcf5; font-weight: bold; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .small-note { font-size: 1em; padding: 8px; width: 100%; border-radius: 8px; border: 1px solid #d1c7bc; box-sizing: border-box; margin-top: 5px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .total-display { font-size: 3.2em; font-weight: bold; color: var(--price-red); text-align: right; margin: 10px 0; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .pay-btn { flex: 1; padding: 15px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-weight: bold; font-size: 1.3em;}</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .pay-btn.active { background: var(--accent-brown); color: white; border-color: var(--accent-brown); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; #admin-panel, #history-panel { position: fixed; inset: 10px; background: white; z-index: 1000; border-radius: 20px; display: none; flex-direction: column; padding: 15px; border: 3px solid var(--main-brown); box-shadow: 0 0 50px rgba(0,0,0,0.3); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .admin-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 15px; flex: 1; overflow: hidden; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .add-row-top { background: #f0fdf4; padding: 15px; border: 2px solid var(--profit-green); border-radius: 15px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .admin-table-container { overflow: auto; border: 1px solid #eee; border-radius: 8px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; table { width: 100%; border-collapse: collapse; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; th { background: #f4f4f4; position: sticky; top: 0; padding: 10px; border: 1px solid #ddd; z-index: 5; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; td { padding: 8px; border: 1px solid #ddd; text-align: center; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .del-x { color: red; font-weight: bold; cursor: pointer; font-size: 1.4em; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .order-tag { background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; margin-right: 4px; color: #666; display: inline-block; margin-top: 4px; border: 1px solid #ddd; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .admin-input-large { font-size: 1.2em !important; padding: 8px !important; width: 100%; box-sizing: border-box; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .history-card { background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 8px; margin-bottom: 10px; position: relative; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .history-del-btn { position: absolute; top: 10px; right: 10px; color: red; cursor: pointer; font-weight: bold; border: 1px solid red; padding: 2px 5px; border-radius: 4px; font-size: 0.8em; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .clear-log-btn { background: none; border: 1px solid #b0a496; color: #b0a496; font-size: 0.75em; padding: 2px 8px; border-radius: 5px; cursor: pointer; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .del-cat-btn { background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; margin-left: 10px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; .edit-cat-btn { background: #3182ce; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; margin-left: 10px; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/style&gt;</span></p><p class="c1"><span class="c0">&lt;/head&gt;</span></p><p class="c1"><span class="c0">&lt;body&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&lt;header&gt;&#129528; LITTLE NOOK POS (Pro &#20462;&#27491;&#29256;)&lt;/header&gt;</span></p><p class="c1"><span class="c0">&lt;div class=&quot;nav-bar&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div id=&quot;navbar&quot; style=&quot;display:flex; gap:10px;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;button class=&quot;sync-btn&quot; onclick=&quot;syncOfflineData()&quot;&gt;&#128260; &#38626;&#32218;&#25976;&#25818;&#21516;&#27493;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&lt;div class=&quot;main-content&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div class=&quot;item-area&quot; id=&quot;item-area&quot;&gt;&#21516;&#27493;&#20013;...&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div class=&quot;checkout-area&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;&#128722; &#30070;&#21069;&#28165;&#21934;&lt;/strong&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id=&quot;cart-list&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;margin-top:10px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type=&quot;number&quot; id=&quot;discount&quot; class=&quot;big-input&quot; placeholder=&quot;&#25240;&#25187;&#37329;&#38989;&quot; oninput=&quot;calc()&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type=&quot;text&quot; id=&quot;discount-note&quot; class=&quot;small-note&quot; placeholder=&quot;&#25240;&#25187;&#21407;&#22240;/&#20633;&#35387; (&#20363;&#22914;: &#28415;&#38989;&#36104;)&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;margin-top:5px; display:flex; gap:5px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;addExtraCost()&quot; style=&quot;flex:1; padding:8px; background:#fef2f2; border:1px solid #fecaca; color:#b91c1c; border-radius:8px; cursor:pointer; font-size:0.9em; font-weight:bold;&quot;&gt;&#10133; &#32000;&#37636;&#38989;&#22806;&#25903;&#20986;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;total-display&quot;&gt;$&lt;span id=&quot;final-total&quot;&gt;0&lt;/span&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;display:flex; gap:8px; margin-bottom:10px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;pay-btn active&quot; id=&quot;btn-cash&quot; onclick=&quot;setPay(&#39;&#29694;&#37329;&#39;)&quot;&gt;&#128181; &#29694;&#37329;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;pay-btn&quot; id=&quot;btn-elec&quot; onclick=&quot;setPay(&#39;&#38651;&#25903;&#39;)&quot;&gt;&#128241; &#38651;&#25903;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type=&quot;number&quot; id=&quot;cash-in&quot; class=&quot;big-input&quot; placeholder=&quot;&#23526;&#25910;&#37329;&#38989;&quot; oninput=&quot;calcChange()&quot;&gt; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;text-align:right; margin-top:5px; font-size: 1.3em;&quot;&gt;&#25214;&#38646;: &lt;span id=&quot;cash-change&quot; style=&quot;font-weight:bold; color:red; font-size:1.8em;&quot;&gt;0&lt;/span&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;margin: 10px 0; padding: 10px; background: #fff5eb; border-radius: 10px; border: 1px dashed var(--main-brown);&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label style=&quot;font-size: 0.9em; cursor: pointer;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type=&quot;checkbox&quot; id=&quot;backdate-mode&quot; onclick=&quot;document.getElementById(&#39;manual-date&#39;).style.display = this.checked ? &#39;inline-block&#39; : &#39;none&#39;&quot;&gt; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#128197; &#35036;&#30331;&#36942;&#21435;&#26085;&#26399;&#36039;&#26009;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/label&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type=&quot;date&quot; id=&quot;manual-date&quot; style=&quot;display:none; margin-left:10px; padding:5px; border:1px solid #ccc; border-radius:5px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;submitOrder()&quot; style=&quot;width:100%; padding:20px; margin-top:15px; background:var(--profit-green); color:white; border:none; border-radius:15px; font-weight:bold; font-size:1.6em;&quot;&gt;&#32080;&#24115;&#23436;&#25104;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;card&quot; style=&quot;flex:1; font-size: 1em; overflow-y: auto;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;&#128203; &#20170;&#26085;&#21363;&#26178;&#32000;&#37636;&lt;/strong&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div id=&quot;order-log&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&lt;div style=&quot;padding:15px; text-align:center; display: flex; justify-content: center; gap: 15px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;button onclick=&quot;toggleAdmin()&quot; style=&quot;padding:15px 25px; border-radius:15px; background:white; border:3px solid var(--main-brown); font-weight:bold; font-size:1.1em; cursor:pointer;&quot;&gt;&#128736;&#65039; &#21830;&#21697;&#31649;&#29702; / &#32113;&#35336;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;button onclick=&quot;toggleHistory()&quot; style=&quot;padding:15px 25px; border-radius:15px; background:var(--accent-brown); color:white; border:none; font-weight:bold; font-size:1.1em; cursor:pointer;&quot;&gt;&#128220; &#27511;&#21490;&#32000;&#37636; / &#36864;&#36008;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&lt;div id=&quot;history-panel&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div style=&quot;display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2 style=&quot;margin:0;&quot;&gt;&#128220; &#27511;&#21490;&#32000;&#37636;&#31649;&#29702;&lt;/h2&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;toggleHistory()&quot; style=&quot;padding:8px 15px;&quot;&gt;&#10005; &#38364;&#38281;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div style=&quot;background:#fdf5f0; padding:15px; border-radius:10px; margin-bottom:15px; display:flex; gap:15px; align-items:center;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label&gt;&#21934;&#26085;&#65306;&lt;/label&gt;&lt;input type=&quot;date&quot; id=&quot;search-date&quot; style=&quot;padding:8px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;searchHistory(&#39;day&#39;)&quot; style=&quot;padding:8px 15px; background:var(--main-brown); color:white; border:none;&quot;&gt;&#128269; &#26597;&#35426;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;border-left: 2px solid #ddd; padding-left: 15px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;label&gt;&#30070;&#26376;&#65306;&lt;/label&gt;&lt;input type=&quot;month&quot; id=&quot;search-month&quot; style=&quot;padding:8px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;searchHistory(&#39;month&#39;)&quot; style=&quot;padding:8px 15px; background:var(--accent-brown); color:white; border:none;&quot;&gt;&#128202; &#32113;&#35336;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div id=&quot;history-result-area&quot; style=&quot;flex:1; overflow-y:auto; background:white; padding:15px; border-radius:10px; border:1px solid #eee;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&lt;div id=&quot;admin-panel&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div style=&quot;display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;h2 style=&quot;margin:0;&quot;&gt;&#9881;&#65039; &#31649;&#29702;&#20013;&#24515;&lt;/h2&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;display:flex; gap:10px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;select id=&quot;admin-cat-jump&quot; onchange=&quot;jumpToAdminCat(this.value)&quot; style=&quot;padding:8px; border-radius:5px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;option value=&quot;&quot;&gt;&#24555;&#36895;&#36339;&#36681;&#20998;&#39006;...&lt;/option&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/select&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;exportToExcel()&quot; style=&quot;padding:8px 15px; background:#217346; color:white; border:none;&quot;&gt;&#128229; &#21295;&#20986;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;backupData()&quot; style=&quot;padding:8px 15px; background:#666; color:white; border:none;&quot;&gt;&#128190; &#20633;&#20221;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;input type=&quot;file&quot; id=&quot;import-file&quot; style=&quot;display:none;&quot; onchange=&quot;importData(event)&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;document.getElementById(&#39;import-file&#39;).click()&quot; style=&quot;padding:8px 15px; background:#d9534f; color:white; border:none;&quot;&gt;&#9888;&#65039; &#36996;&#21407;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;toggleAdmin()&quot; style=&quot;padding:8px 15px;&quot;&gt;&#10005; &#38364;&#38281;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div class=&quot;add-row-top&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;&lt;label&gt;&#36984;&#25799;&#20998;&#39006;&lt;/label&gt;&lt;select id=&quot;select-cat&quot; onchange=&quot;checkNewCat(this.value)&quot;&gt;&lt;/select&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;&lt;label&gt;&#20195;&#30908;&lt;/label&gt;&lt;input type=&quot;text&quot; id=&quot;new-id&quot; style=&quot;width:60px;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;&lt;label&gt;&#21697;&#21517;&lt;/label&gt;&lt;input type=&quot;text&quot; id=&quot;new-n&quot; style=&quot;width:180px;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;&lt;label&gt;&#25104;&#26412;&lt;/label&gt;&lt;input type=&quot;number&quot; id=&quot;new-c&quot; style=&quot;width:60px;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;&lt;label&gt;&#21806;&#20729;&lt;/label&gt;&lt;input type=&quot;number&quot; id=&quot;new-p&quot; style=&quot;width:60px;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div&gt;&lt;label&gt;&#24235;&#23384;&lt;/label&gt;&lt;input type=&quot;number&quot; id=&quot;new-s&quot; style=&quot;width:60px;&quot;&gt;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;button onclick=&quot;addNewProduct()&quot; style=&quot;background:var(--profit-green); color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;&quot;&gt;&#10133; &#26032;&#22686;&#21830;&#21697;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;div class=&quot;admin-layout&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;admin-table-container&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;table&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;thead&gt;&lt;tr&gt;&lt;th&gt;&#38918;&#24207;&lt;/th&gt;&lt;th&gt;&#21697;&#21517;&lt;/th&gt;&lt;th&gt;&#25104;&#26412;&lt;/th&gt;&lt;th&gt;&#21806;&#20729;&lt;/th&gt;&lt;th&gt;&#24235;&#23384;&lt;/th&gt;&lt;th&gt;&#21034;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;tbody id=&quot;admin-tbody&quot;&gt;&lt;/tbody&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/table&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;background:#f9f9f9; padding:15px; border-radius:10px; overflow-y:auto;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;h3&gt;&#128202; &#37559;&#21806;&#25490;&#21517; (&#19981;&#20998;&#26085;&#26399;)&lt;/h3&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;table style=&quot;font-size:0.9em;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;thead&gt;&lt;tr style=&quot;background:#eee;&quot;&gt;&lt;th&gt;&#21697;&#21517;&lt;/th&gt;&lt;th&gt;&#37327;&lt;/th&gt;&lt;th&gt;&#38989;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;tbody id=&quot;stat-tbody&quot;&gt;&lt;/tbody&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/table&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&lt;/div&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&lt;script&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp;const firebaseConfig = { apiKey: &quot;AIzaSyAM-FQnBGiNEBdrmsV1mHEv9UOWD47ThkI&quot;, authDomain: &quot;tocamera-pos.firebaseapp.com&quot;, databaseURL: &quot;https://tocamera-pos-default-rtdb.firebaseio.com/&quot;,projectId: &quot;tocamera-pos&quot;, storageBucket: &quot;tocamera-pos.firebasestorage.app&quot;, messagingSenderId: &quot;880716305021&quot;, appId: &quot;1:880716305021:web:a44ae93dc3901f1bff9714&quot;, measurementId: &quot;G-B59ZBTTDNG&quot;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; };</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; let db;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; try {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; firebase.initializeApp(firebaseConfig);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; db = firebase.database();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; } catch(e) { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; console.log(&quot;Firebase&#26410;&#37197;&#32622;&#65292;&#20351;&#29992;&#26412;&#22320;&#27169;&#24335;&quot;); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; let inv = []; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; let orders = [];</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; let cart = []; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; let currentPay = &#39;&#29694;&#37329;&#39;;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; const defaultInv = [</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; { cat: &quot;&#129528; &#25307;&#29260;&#29609;&#20598;&quot;, items: [{id: &quot;A01&quot;, n: &quot;&#32147;&#20856;&#23567;&#29066;&quot;, c: 100, p: 250, s: 10}] },</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; { cat: &quot;&#9749; &#29983;&#27963;&#38620;&#36008;&quot;, items: [{id: &quot;B01&quot;, n: &quot;&#25163;&#20316;&#39340;&#20811;&#26479;&quot;, c: 50, p: 150, s: 20}] }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; ];</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function loadData() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(db &amp;&amp; firebaseConfig.apiKey !== &quot;&#35531;&#26367;&#25563;&#28858;&#24744;&#30340;API_KEY&quot;) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;inventory&#39;).on(&#39;value&#39;, snap =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inv = snap.val() || defaultInv;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; initUI();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;orders&#39;).on(&#39;value&#39;, snap =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const data = snap.val();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; // &#23559; Firebase &#29289;&#20214;&#36681;&#25563;&#28858;&#38499;&#21015;&#20006;&#21253;&#21547; key</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; orders = data ? Object.keys(data).map(k =&gt; ({...data[k], firebaseKey: k})) : [];</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; orders.sort((a,b) =&gt; (b.d+b.t).localeCompare(a.d+a.t)); // &#25490;&#24207;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateLog(); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderStatTable();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; } else {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inv = defaultInv;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; initUI();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; loadData();</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function syncToDB() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; initUI();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(db &amp;&amp; firebaseConfig.apiKey !== &quot;&#35531;&#26367;&#25563;&#28858;&#24744;&#30340;API_KEY&quot;) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;inventory&#39;).set(inv).catch(e =&gt; console.log(&quot;&#38642;&#31471;&#21516;&#27493;&#22833;&#25943;&quot;));</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function initUI() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const area = document.getElementById(&#39;item-area&#39;), nav = document.getElementById(&#39;navbar&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const jumpSelect = document.getElementById(&#39;admin-cat-jump&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; area.innerHTML = &#39;&#39;; nav.innerHTML = &#39;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(jumpSelect) jumpSelect.innerHTML = &#39;&lt;option value=&quot;&quot;&gt;&#24555;&#36895;&#36339;&#36681;&#20998;&#39006;...&lt;/option&gt;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; inv.forEach((cat, idx) =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; nav.innerHTML += `&lt;div class=&quot;nav-btn&quot; onclick=&quot;document.getElementById(&#39;c${idx}&#39;).scrollIntoView()&quot;&gt;${cat.cat}&lt;/div&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(jumpSelect) jumpSelect.innerHTML += `&lt;option value=&quot;ac${idx}&quot;&gt;${cat.cat}&lt;/option&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; let gridHtml = `&lt;div class=&quot;cat-title&quot; id=&quot;c${idx}&quot;&gt;${cat.cat}&lt;/div&gt;&lt;div class=&quot;product-grid&quot;&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(!cat.items || cat.items.length === 0) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; gridHtml += `&lt;div style=&quot;color:#999; padding:10px;&quot;&gt;&#27492;&#20998;&#39006;&#26283;&#28961;&#21830;&#21697;&lt;/div&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; } else {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cat.items.forEach(it =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; gridHtml += `&lt;div class=&quot;p-btn&quot; onclick=&quot;addCart(&#39;${it.id}&#39;)&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;p-name&quot;&gt;${it.id} ${it.n}&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;p-price&quot;&gt;$${it.p}&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;p-stock&quot;&gt;&#23384;:${it.s}&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; area.innerHTML += gridHtml + &#39;&lt;/div&gt;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; updateCatSelect();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(document.getElementById(&#39;admin-panel&#39;).style.display === &#39;flex&#39;) renderAdminTable();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; // --- &#21363;&#26178;&#32000;&#37636;&#21151;&#33021; ---</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function updateLog() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const logArea = document.getElementById(&#39;order-log&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const today = new Date().toLocaleDateString(&#39;zh-TW&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const todayOrders = orders.filter(o =&gt; o.d === today).slice(0, 10);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(todayOrders.length === 0) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; logArea.innerHTML = &#39;&lt;div style=&quot;color:#999; padding:10px; text-align:center;&quot;&gt;&#20170;&#26085;&#23578;&#28961;&#20132;&#26131;&lt;/div&gt;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; logArea.innerHTML = todayOrders.map(o =&gt; `</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;border-bottom:1px solid #eee; padding:5px 0; font-size:0.9em;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span style=&quot;color:#888;&quot;&gt;[${o.t}]&lt;/span&gt; &lt;b&gt;$${o.total}&lt;/b&gt; (${o.pay})</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div style=&quot;color:#666; font-size:0.85em;&quot;&gt;${o.items.map(i =&gt; i.n).join(&#39;, &#39;)}&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; `).join(&#39;&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; // --- &#27511;&#21490;&#33287;&#32113;&#35336;&#21151;&#33021; ---</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function searchHistory(mode) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const resultArea = document.getElementById(&#39;history-result-area&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let filtered = [];</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let title = &quot;&quot;;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(mode === &#39;day&#39;) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const date = document.getElementById(&#39;search-date&#39;).value;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(!date) return alert(&quot;&#35531;&#36984;&#25799;&#26085;&#26399;&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const dateStr = new Date(date).toLocaleDateString(&#39;zh-TW&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filtered = orders.filter(o =&gt; o.d === dateStr);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; title = `&#128197; ${dateStr} &#20132;&#26131;&#32000;&#37636;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; } else {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const month = document.getElementById(&#39;search-month&#39;).value; // YYYY-MM</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(!month) return alert(&quot;&#35531;&#36984;&#25799;&#26376;&#20221;&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filtered = orders.filter(o =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const parts = o.d.split(&#39;/&#39;); // &#20551;&#35373;&#26684;&#24335;&#26159; 2026/1/4</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const oMonth = `${parts[0]}-${parts[1].padStart(2,&#39;0&#39;)}`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return oMonth === month;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; title = `&#128202; ${month} &#26376;&#24230;&#32113;&#35336;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let totalRev = 0, totalProf = 0;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let html = `&lt;h3&gt;${title}&lt;/h3&gt;`;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(filtered.length === 0) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html += &quot;&lt;p&gt;&#27492;&#26178;&#27573;&#28961;&#36039;&#26009;&lt;/p&gt;&quot;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; } else {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; filtered.forEach(o =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; totalRev += o.total;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; totalProf += (o.profit || 0);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html += `</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;history-card&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;history-del-btn&quot; onclick=&quot;deleteOrder(&#39;${o.firebaseKey}&#39;)&quot;&gt;&#36864;&#36008;/&#21034;&#38500;&lt;/div&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;strong&gt;&#12304;${o.pay}&#12305;&#32317;&#35336;: $${o.total}&lt;/strong&gt; &lt;small&gt;(${o.d} ${o.t})&lt;/small&gt;&lt;br&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span style=&quot;font-size:0.9em; color:#666;&quot;&gt;&#20839;&#23481;: ${o.items.map(i=&gt;`${i.n}x1`).join(&#39;, &#39;)}&lt;/span&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${o.note ? `&lt;br&gt;&lt;small style=&quot;color:blue;&quot;&gt;&#20633;&#35387;: ${o.note}&lt;/small&gt;` : &#39;&#39;}</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html = `&lt;div style=&quot;background:#e8f5e9; padding:10px; border-radius:8px; margin-bottom:10px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;b&gt;&#32317;&#29151;&#25910;: $${totalRev}&lt;/b&gt; | &lt;b&gt;&#38928;&#20272;&#27611;&#21033;: $${totalProf}&lt;/b&gt; | &lt;b&gt;&#21934;&#25976;: ${filtered.length}&lt;/b&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/div&gt;` + html;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; resultArea.innerHTML = html;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function deleteOrder(key) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(!db) return alert(&quot;&#26412;&#22320;&#27169;&#24335;&#19981;&#25903;&#25588;&#21034;&#38500;&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(confirm(&quot;&#30906;&#23450;&#35201;&#22519;&#34892;&#36864;&#36008;&#20006;&#21034;&#38500;&#27492;&#32000;&#37636;&#21966;&#65311;(&#27880;&#24847;&#65306;&#27492;&#21205;&#20316;&#19981;&#26371;&#33258;&#21205;&#35036;&#22238;&#24235;&#23384;&#65292;&#38656;&#25163;&#21205;&#35519;&#25972;)&quot;)) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;orders&#39;).child(key).remove()</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .then(() =&gt; alert(&quot;&#24050;&#21034;&#38500;&#32000;&#37636;&quot;))</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .catch(e =&gt; alert(&quot;&#21034;&#38500;&#22833;&#25943;&quot;));</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function renderStatTable() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const stats = {};</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; orders.forEach(o =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; o.items.forEach(it =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(it.id === &quot;&#25903;&#20986;&quot;) return;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(!stats[it.n]) stats[it.n] = { qty: 0, amt: 0 };</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stats[it.n].qty += 1;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; stats[it.n].amt += it.p;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const sorted = Object.entries(stats).sort((a,b) =&gt; b[1].qty - a[1].qty);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;stat-tbody&#39;).innerHTML = sorted.map(([name, data]) =&gt; `</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;tr&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td style=&quot;text-align:left;&quot;&gt;${name}&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;${data.qty}&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;$${data.amt}&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/tr&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; `).join(&#39;&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; // --- &#21407;&#26377;&#37007;&#36655;&#20462;&#27491;&#33287;&#35036;&#24375; ---</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function checkNewCat(val) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(val === &quot;ADD&quot;) { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const n = prompt(&quot;&#35531;&#36664;&#20837;&#26032;&#20998;&#39006;&#21517;&#31281;&#65306;&quot;); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(n) { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inv.push({cat: n, items: []}); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncToDB();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;select-cat&#39;).selectedIndex = 0;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function deleteCategory(ci) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(confirm(`&#9888;&#65039; &#30906;&#23450;&#35201;&#21034;&#38500;&#12300;${inv[ci].cat}&#12301;&#21450;&#20854;&#25152;&#26377;&#21830;&#21697;&#65311;`)) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inv.splice(ci, 1);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(inv.length === 0) inv = [{cat: &quot;&#38928;&#35373;&#20998;&#39006;&quot;, items: []}]; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncToDB();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function editCategoryName(ci) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const n = prompt(&quot;&#35531;&#20462;&#25913;&#20998;&#39006;&#21517;&#31281;&#65306;&quot;, inv[ci].cat);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if (n) { inv[ci].cat = n; syncToDB(); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function updateCatSelect() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const sel = document.getElementById(&#39;select-cat&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(sel) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sel.innerHTML = inv.map(c =&gt; `&lt;option value=&quot;${c.cat}&quot;&gt;${c.cat}&lt;/option&gt;`).join(&#39;&#39;) + </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`&lt;option value=&quot;ADD&quot;&gt;&#10133; &#26032;&#22686;&#20998;&#39006;&lt;/option&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function renderAdminTable() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let html = &#39;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; inv.forEach((cat, ci) =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html += `&lt;tr id=&quot;ac${ci}&quot; style=&quot;background:#eee;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td colspan=&quot;6&quot; style=&quot;text-align:left; padding:10px;&quot;&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;b&gt;&#128194; ${cat.cat}&lt;/b&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;edit-cat-btn&quot; onclick=&quot;editCategoryName(${ci})&quot;&gt;&#9999;&#65039;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;button class=&quot;del-cat-btn&quot; onclick=&quot;deleteCategory(${ci})&quot;&gt;&#128465;&#65039;&lt;/button&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/tr&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (cat.items || []).forEach((it, ii) =&gt; {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; html += `&lt;tr&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;span onclick=&quot;move(${ci},${ii},-1)&quot; style=&quot;cursor:pointer&quot;&gt;&uarr;&lt;/span&gt; &lt;span onclick=&quot;move(${ci},${ii},1)&quot; style=&quot;cursor:pointer&quot;&gt;&darr;&lt;/span&gt;&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td style=&quot;text-align:left;&quot;&gt;&lt;input type=&quot;text&quot; value=&quot;${it.n}&quot; onchange=&quot;editItem(${ci},${ii},&#39;n&#39;,this.value)&quot; class=&quot;admin-input-large&quot;&gt;&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;input type=&quot;number&quot; value=&quot;${it.c}&quot; onchange=&quot;editItem(${ci},${ii},&#39;c&#39;,this.value)&quot; style=&quot;width:50px;&quot;&gt;&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;input type=&quot;number&quot; value=&quot;${it.p}&quot; onchange=&quot;editItem(${ci},${ii},&#39;p&#39;,this.value)&quot; style=&quot;width:50px;&quot;&gt;&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;input type=&quot;number&quot; value=&quot;${it.s}&quot; onchange=&quot;editItem(${ci},${ii},&#39;s&#39;,this.value)&quot; style=&quot;width:50px;&quot;&gt;&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;td&gt;&lt;span onclick=&quot;delP(${ci},${ii})&quot; class=&quot;del-x&quot;&gt;&#10005;&lt;/span&gt;&lt;/td&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/tr&gt;`;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;admin-tbody&#39;).innerHTML = html;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function addNewProduct() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const catN = document.getElementById(&#39;select-cat&#39;).value;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const id = document.getElementById(&#39;new-id&#39;).value, n = document.getElementById(&#39;new-n&#39;).value;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const c = Number(document.getElementById(&#39;new-c&#39;).value), p = Number(document.getElementById(&#39;new-p&#39;).value), s = Number(document.getElementById(&#39;new-s&#39;).value);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(!n || !catN || catN === &quot;ADD&quot;) return alert(&quot;&#35531;&#22635;&#23531;&#21697;&#21517;&#20006;&#36984;&#25799;&#20998;&#39006;&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const category = inv.find(v =&gt; v.cat === catN);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(category) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(!category.items) category.items = [];</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; category.items.push({id: id || Date.now().toString().slice(-4), n, c, p, s});</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; syncToDB();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [&#39;new-id&#39;,&#39;new-n&#39;,&#39;new-c&#39;,&#39;new-p&#39;,&#39;new-s&#39;].forEach(f =&gt; document.getElementById(f).value=&#39;&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function addCart(id) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let target = null;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; inv.forEach(c =&gt; (c.items || []).forEach(i =&gt; { if(i.id === id) target = i; }));</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(target) { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(target.s &lt;= 0) { if(!confirm(&quot;&#24235;&#23384;&#19981;&#36275;&#65292;&#20173;&#35201;&#21152;&#20837;&#65311;&quot;)) return; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; cart.push({...target}); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; renderCart(); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function renderCart() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;cart-list&#39;).innerHTML = cart.map((it, i) =&gt; `</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;div class=&quot;cart-item&quot;&gt;&lt;span&gt;${it.id} ${it.n}&lt;/span&gt;&lt;b&gt;$${it.p}&lt;/b&gt;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;span onclick=&quot;cart.splice(${i},1);renderCart()&quot; style=&quot;color:red; cursor:pointer;&quot;&gt;&#10005;&lt;/span&gt;&lt;/div&gt;`).join(&#39;&#39;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; calc();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function calc() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const total = cart.reduce((a,b)=&gt;a+b.p, 0) - Number(document.getElementById(&#39;discount&#39;).value || 0);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;final-total&#39;).innerText = Math.max(0, total);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; calcChange();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function calcChange() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const t = Number(document.getElementById(&#39;final-total&#39;).innerText), p = Number(document.getElementById(&#39;cash-in&#39;).value || 0);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;cash-change&#39;).innerText = p &gt; t ? p - t : 0;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function setPay(m) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; currentPay = m;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;btn-cash&#39;).className = m===&#39;&#29694;&#37329;&#39;?&#39;pay-btn active&#39;:&#39;pay-btn&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;btn-elec&#39;).className = m===&#39;&#38651;&#25903;&#39;?&#39;pay-btn active&#39;:&#39;pay-btn&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function submitOrder() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(!cart.length) return;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const total = Number(document.getElementById(&#39;final-total&#39;).innerText);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const backdateMode = document.getElementById(&#39;backdate-mode&#39;).checked;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const manualDate = document.getElementById(&#39;manual-date&#39;).value;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const dateObj = (backdateMode &amp;&amp; manualDate) ? new Date(manualDate) : new Date();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const orderData = { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; t: new Date().toLocaleTimeString(&#39;zh-TW&#39;, {hour12:false}), </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; d: dateObj.toLocaleDateString(&#39;zh-TW&#39;),</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; total, </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; profit: total - cart.reduce((a,b)=&gt;a+(b.c||0), 0), </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; pay: currentPay, </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; items: [...cart], </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; discount: Number(document.getElementById(&#39;discount&#39;).value || 0), </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; note: document.getElementById(&#39;discount-note&#39;).value </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; };</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; // &#25187;&#24235;&#23384;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; cart.forEach(item =&gt; { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; inv.forEach(c =&gt; (c.items || []).forEach(i =&gt; { if(i.id === item.id) i.s--; })); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(db &amp;&amp; firebaseConfig.apiKey !== &quot;&#35531;&#26367;&#25563;&#28858;&#24744;&#30340;API_KEY&quot;) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;orders&#39;).push(orderData);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;inventory&#39;).set(inv);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert(&quot;&#32080;&#24115;&#25104;&#21151;&#65281;&#24050;&#21516;&#27493;&#33267; Firebase&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; } else {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; orders.unshift(orderData);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert(&quot;&#26412;&#22320;&#32080;&#24115;&#25104;&#21151;&#65281;(&#26410;&#36899;&#25509; Firebase)&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; updateLog();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; cart=[]; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;discount&#39;).value = &#39;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;discount-note&#39;).value = &#39;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; document.getElementById(&#39;cash-in&#39;).value = &#39;&#39;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; renderCart(); </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; syncToDB();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function addExtraCost() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const amount = prompt(&quot;&#35531;&#36664;&#20837;&#25903;&#20986;&#37329;&#38989;&#65306;&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if (!amount || isNaN(amount)) return;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const reason = prompt(&quot;&#25903;&#20986;&#21407;&#22240;&#65311;&quot;) || &quot;&#38620;&#38917;&#25903;&#20986;&quot;;</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; cart.push({ id: &quot;&#25903;&#20986;&quot;, n: &quot;[&#25903;] &quot; + reason, p: 0, c: Number(amount), s: 0 });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; renderCart();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function editItem(ci, ii, k, v) { inv[ci].items[ii][k] = (k===&#39;n&#39;?v:Number(v)); syncToDB(); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function move(ci, ii, dir) { </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; let items = inv[ci].items; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(ii+dir&gt;=0 &amp;&amp; ii+dir&lt;items.length){ [items[ii], items[ii+dir]]=[items[ii+dir], items[ii]]; renderAdminTable(); syncToDB(); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function delP(ci, ii) { if(confirm(&quot;&#30906;&#23450;&#21034;&#38500;&#21830;&#21697;&#65311;&quot;)){ inv[ci].items.splice(ii,1); syncToDB(); } }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function toggleAdmin() { const p = document.getElementById(&#39;admin-panel&#39;); p.style.display = p.style.display === &#39;flex&#39; ? &#39;none&#39; : &#39;flex&#39;; if(p.style.display === &#39;flex&#39;) renderAdminTable(); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function toggleHistory() { const p = document.getElementById(&#39;history-panel&#39;); p.style.display = p.style.display === &#39;flex&#39; ? &#39;none&#39; : &#39;flex&#39;; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function jumpToAdminCat(val) { if(val) document.getElementById(val).scrollIntoView({behavior: &quot;smooth&quot;}); }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; </span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function backupData() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const blob = new Blob([JSON.stringify({inv, orders}, null, 2)], { type: &quot;application/json&quot; });</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const a = document.createElement(&quot;a&quot;); a.href = URL.createObjectURL(blob); a.download = `LittleNook_Backup_${new Date().toLocaleDateString()}.json`; a.click();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function exportToExcel() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const data = orders.map(o =&gt; ({</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;&#26085;&#26399;&quot;: o.d, &quot;&#26178;&#38291;&quot;: o.t, &quot;&#32317;&#38989;&quot;: o.total, &quot;&#27611;&#21033;&quot;: o.profit, &quot;&#25903;&#20184;&#26041;&#24335;&quot;: o.pay, &quot;&#20633;&#35387;&quot;: o.note, &quot;&#21830;&#21697;&#26126;&#32048;&quot;: o.items.map(i=&gt;i.n).join(&#39;,&#39;)</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }));</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const ws = XLSX.utils.json_to_sheet(data);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; const wb = XLSX.utils.book_new();</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; XLSX.utils.book_append_sheet(wb, ws, &quot;Sales&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; XLSX.writeFile(wb, `Sales_Export_${new Date().toLocaleDateString()}.xlsx`);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1"><span class="c0">&nbsp; &nbsp; function syncOfflineData() {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; if(db) {</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; db.ref(&#39;inventory&#39;).set(inv);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; alert(&quot;&#25163;&#21205;&#21516;&#27493;&#23436;&#25104;&quot;);</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; &nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&nbsp; &nbsp; }</span></p><p class="c1"><span class="c0">&lt;/script&gt;</span></p><p class="c1"><span class="c0">&lt;/body&gt;</span></p><p class="c1"><span class="c0">&lt;/html&gt;</span></p><p class="c1 c2"><span class="c0"></span></p><p class="c1 c2"><span class="c0"></span></p></body></html>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🧸 LITTLE NOOK POS (Pro 修正版)</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <style>
+        :root { --main-brown: #b0a496; --bg-cream: #fcf8f5; --accent-brown: #8c7b6c; --price-red: #d9534f; --profit-green: #6b8e23; }
+        body { font-family: sans-serif; background: var(--bg-cream); margin: 0; display: flex; flex-direction: column; height: 100vh; color: #5d5246; overflow: hidden; }
+        header { background: var(--main-brown); color: white; padding: 12px; text-align: center; font-size: 1.3em; font-weight: bold; flex-shrink: 0; }
+        .nav-bar { background: #e8e0d9; padding: 10px; display: flex; gap: 10px; overflow-x: auto; border-bottom: 2px solid #d1c7bc; flex-shrink: 0; align-items: center; }
+        .nav-btn { background: white; border: 1px solid #d1c7bc; padding: 8px 18px; border-radius: 20px; white-space: nowrap; cursor: pointer; font-size: 1.1em; }
+        .sync-btn { background: #ff9800; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-left: auto; }
+        .main-content { display: flex; flex: 1; overflow: hidden; padding: 10px; gap: 10px; }
+        .item-area { flex: 1.8; overflow-y: auto; background: white; border-radius: 15px; padding: 15px; border: 2px solid #e8e0d9; }
+        .cat-title { background: #fdf5f0; padding: 8px 15px; border-radius: 20px; margin: 15px 0 8px; font-weight: bold; border-left: 8px solid var(--main-brown); font-size: 1.2em; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 10px; }
+        .p-btn { background: white; border: 1px solid #f0e6dd; border-radius: 12px; padding: 10px 5px; text-align: center; cursor: pointer; box-shadow: 2px 2px 0 #e8e0d9; min-height: 90px; display: flex; flex-direction: column; justify-content: center; }
+        .p-name { font-size: 0.85em; font-weight: bold; margin-bottom: 5px; height: 2.8em; overflow: hidden; line-height: 1.4; }
+        .p-price { color: #c2966d; font-size: 1.2em; font-weight: bold; }
+        .p-stock { font-size: 0.8em; color: #999; }
+        .checkout-area { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 320px; overflow-y: auto; }
+        .card { background: white; border-radius: 15px; padding: 12px; border: 2px solid #e8e0d9; }
+        #cart-list { max-height: 200px; overflow-y: auto; border-bottom: 2px dashed #e8e0d9; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 5px; font-size: 1.1em; border-bottom: 1px solid #eee; }
+        .big-input { font-size: 1.8em; padding: 12px; width: 100%; border-radius: 10px; border: 2px solid #d1c7bc; text-align: right; box-sizing: border-box; background: #fffcf5; font-weight: bold; }
+        .small-note { font-size: 1em; padding: 8px; width: 100%; border-radius: 8px; border: 1px solid #d1c7bc; box-sizing: border-box; margin-top: 5px; }
+        .total-display { font-size: 3.2em; font-weight: bold; color: var(--price-red); text-align: right; margin: 10px 0; }
+        .pay-btn { flex: 1; padding: 15px; border-radius: 10px; border: 1px solid #ccc; background: white; cursor: pointer; font-weight: bold; font-size: 1.3em;}
+        .pay-btn.active { background: var(--accent-brown); color: white; border-color: var(--accent-brown); }
+        #admin-panel, #history-panel { position: fixed; inset: 10px; background: white; z-index: 1000; border-radius: 20px; display: none; flex-direction: column; padding: 15px; border: 3px solid var(--main-brown); box-shadow: 0 0 50px rgba(0,0,0,0.3); }
+        .admin-layout { display: grid; grid-template-columns: 1.5fr 1fr; gap: 15px; flex: 1; overflow: hidden; }
+        .add-row-top { background: #f0fdf4; padding: 15px; border: 2px solid var(--profit-green); border-radius: 15px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+        .admin-table-container { overflow: auto; border: 1px solid #eee; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f4f4f4; position: sticky; top: 0; padding: 10px; border: 1px solid #ddd; z-index: 5; }
+        td { padding: 8px; border: 1px solid #ddd; text-align: center; }
+        .del-x { color: red; font-weight: bold; cursor: pointer; font-size: 1.4em; }
+        .order-tag { background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 0.8em; margin-right: 4px; color: #666; display: inline-block; margin-top: 4px; border: 1px solid #ddd; }
+        .admin-input-large { font-size: 1.2em !important; padding: 8px !important; width: 100%; box-sizing: border-box; }
+        .history-card { background: #fdfdfd; border: 1px solid #eee; padding: 10px; border-radius: 8px; margin-bottom: 10px; position: relative; }
+        .history-del-btn { position: absolute; top: 10px; right: 10px; color: red; cursor: pointer; font-weight: bold; border: 1px solid red; padding: 2px 5px; border-radius: 4px; font-size: 0.8em; }
+        .clear-log-btn { background: none; border: 1px solid #b0a496; color: #b0a496; font-size: 0.75em; padding: 2px 8px; border-radius: 5px; cursor: pointer; }
+        .del-cat-btn { background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; margin-left: 10px; }
+        .edit-cat-btn { background: #3182ce; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8em; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<header>🧸 LITTLE NOOK POS (Pro 修正版)</header>
+<div class="nav-bar">
+    <div id="navbar" style="display:flex; gap:10px;"></div>
+    <button class="sync-btn" onclick="syncOfflineData()">🔄 離線數據同步</button>
+</div>
+
+<div class="main-content">
+    <div class="item-area" id="item-area">同步中...</div>
+    <div class="checkout-area">
+        <div class="card">
+            <strong>🛒 當前清單</strong>
+            <div id="cart-list"></div>
+            <div style="margin-top:10px;">
+                <input type="number" id="discount" class="big-input" placeholder="折扣金額" oninput="calc()">
+                <input type="text" id="discount-note" class="small-note" placeholder="折扣原因/備註 (例如: 滿額贈)">
+                <div style="margin-top:5px; display:flex; gap:5px;">
+                    <button onclick="addExtraCost()" style="flex:1; padding:8px; background:#fef2f2; border:1px solid #fecaca; color:#b91c1c; border-radius:8px; cursor:pointer; font-size:0.9em; font-weight:bold;">➕ 紀錄額外支出</button>
+                </div>
+            </div>
+            <div class="total-display">$<span id="final-total">0</span></div>
+            <div style="display:flex; gap:8px; margin-bottom:10px;">
+                <button class="pay-btn active" id="btn-cash" onclick="setPay('現金')">💵 現金</button>
+                <button class="pay-btn" id="btn-elec" onclick="setPay('電支')">📱 電支</button>
+            </div>
+            <input type="number" id="cash-in" class="big-input" placeholder="實收金額" oninput="calcChange()"> 
+            <div style="text-align:right; margin-top:5px; font-size: 1.3em;">找零: <span id="cash-change" style="font-weight:bold; color:red; font-size:1.8em;">0</span></div>
+            
+            <div style="margin: 10px 0; padding: 10px; background: #fff5eb; border-radius: 10px; border: 1px dashed var(--main-brown);">
+                <label style="font-size: 0.9em; cursor: pointer;">
+                    <input type="checkbox" id="backdate-mode" onclick="document.getElementById('manual-date').style.display = this.checked ? 'inline-block' : 'none'"> 
+                    📅 補登過去日期資料
+                </label>
+                <input type="date" id="manual-date" style="display:none; margin-left:10px; padding:5px; border:1px solid #ccc; border-radius:5px;">
+            </div>
+
+            <button onclick="submitOrder()" style="width:100%; padding:20px; margin-top:15px; background:var(--profit-green); color:white; border:none; border-radius:15px; font-weight:bold; font-size:1.6em;">結帳完成</button>
+        </div>
+        <div class="card" style="flex:1; font-size: 1em; overflow-y: auto;">
+            <strong>📋 今日即時紀錄</strong>
+            <div id="order-log"></div>
+        </div>
+    </div>
+</div>
+
+<div style="padding:15px; text-align:center; display: flex; justify-content: center; gap: 15px;">
+    <button onclick="toggleAdmin()" style="padding:15px 25px; border-radius:15px; background:white; border:3px solid var(--main-brown); font-weight:bold; font-size:1.1em; cursor:pointer;">🛠️ 商品管理 / 統計</button>
+    <button onclick="toggleHistory()" style="padding:15px 25px; border-radius:15px; background:var(--accent-brown); color:white; border:none; font-weight:bold; font-size:1.1em; cursor:pointer;">📜 歷史紀錄 / 退貨</button>
+</div>
+
+<div id="history-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <h2 style="margin:0;">📜 歷史紀錄管理</h2>
+        <button onclick="toggleHistory()" style="padding:8px 15px;">✕ 關閉</button>
+    </div>
+    <div style="background:#fdf5f0; padding:15px; border-radius:10px; margin-bottom:15px; display:flex; gap:15px; align-items:center;">
+        <div>
+            <label>單日：</label><input type="date" id="search-date" style="padding:8px;">
+            <button onclick="searchHistory('day')" style="padding:8px 15px; background:var(--main-brown); color:white; border:none;">🔍 查詢</button>
+        </div>
+        <div style="border-left: 2px solid #ddd; padding-left: 15px;">
+            <label>當月：</label><input type="month" id="search-month" style="padding:8px;">
+            <button onclick="searchHistory('month')" style="padding:8px 15px; background:var(--accent-brown); color:white; border:none;">📊 統計</button>
+        </div>
+    </div>
+    <div id="history-result-area" style="flex:1; overflow-y:auto; background:white; padding:15px; border-radius:10px; border:1px solid #eee;"></div>
+</div>
+
+<div id="admin-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h2 style="margin:0;">⚙️ 管理中心</h2>
+        <div style="display:flex; gap:10px;">
+            <select id="admin-cat-jump" onchange="jumpToAdminCat(this.value)" style="padding:8px; border-radius:5px;">
+                <option value="">快速跳轉分類...</option>
+            </select>
+            <button onclick="exportToExcel()" style="padding:8px 15px; background:#217346; color:white; border:none;">📥 匯出</button>
+            <button onclick="backupData()" style="padding:8px 15px; background:#666; color:white; border:none;">💾 備份</button>
+            <input type="file" id="import-file" style="display:none;" onchange="importData(event)">
+            <button onclick="document.getElementById('import-file').click()" style="padding:8px 15px; background:#d9534f; color:white; border:none;">⚠️ 還原</button>
+            <button onclick="toggleAdmin()" style="padding:8px 15px;">✕ 關閉</button>
+        </div>
+    </div>
+    
+    <div class="add-row-top">
+        <div><label>選擇分類</label><select id="select-cat" onchange="checkNewCat(this.value)"></select></div>
+        <div><label>代碼</label><input type="text" id="new-id" style="width:60px;"></div>
+        <div><label>品名</label><input type="text" id="new-n" style="width:180px;"></div>
+        <div><label>成本</label><input type="number" id="new-c" style="width:60px;"></div>
+        <div><label>售價</label><input type="number" id="new-p" style="width:60px;"></div>
+        <div><label>庫存</label><input type="number" id="new-s" style="width:60px;"></div>
+        <button onclick="addNewProduct()" style="background:var(--profit-green); color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:bold;">➕ 新增商品</button>
+    </div>
+
+    <div class="admin-layout">
+        <div class="admin-table-container">
+            <table>
+                <thead><tr><th>順序</th><th>品名</th><th>成本</th><th>售價</th><th>庫存</th><th>刪</th></tr></thead>
+                <tbody id="admin-tbody"></tbody>
+            </table>
+        </div>
+        <div style="background:#f9f9f9; padding:15px; border-radius:10px; overflow-y:auto;">
+            <h3>📊 銷售排名 (不分日期)</h3>
+            <table style="font-size:0.9em;">
+                <thead><tr style="background:#eee;"><th>品名</th><th>量</th><th>額</th></tr></thead>
+                <tbody id="stat-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+   const firebaseConfig = { apiKey: "AIzaSyAM-FQnBGiNEBdrmsV1mHEv9UOWD47ThkI", authDomain: "tocamera-pos.firebaseapp.com", databaseURL: "https://tocamera-pos-default-rtdb.firebaseio.com/",projectId: "tocamera-pos", storageBucket: "tocamera-pos.firebasestorage.app", messagingSenderId: "880716305021", appId: "1:880716305021:web:a44ae93dc3901f1bff9714", measurementId: "G-B59ZBTTDNG"
+    };
+
+    let db;
+    try {
+        firebase.initializeApp(firebaseConfig);
+        db = firebase.database();
+    } catch(e) { 
+        console.log("Firebase未配置，使用本地模式"); 
+    }
+    
+    let inv = []; 
+    let orders = [];
+    let cart = []; 
+    let currentPay = '現金';
+
+    const defaultInv = [
+        { cat: "🧸 招牌玩偶", items: [{id: "A01", n: "經典小熊", c: 100, p: 250, s: 10}] },
+        { cat: "☕ 生活雜貨", items: [{id: "B01", n: "手作馬克杯", c: 50, p: 150, s: 20}] }
+    ];
+
+    function loadData() {
+        if(db && firebaseConfig.apiKey !== "請替換為您的API_KEY") {
+            db.ref('inventory').on('value', snap => {
+                inv = snap.val() || defaultInv;
+                initUI();
+            });
+            db.ref('orders').on('value', snap => {
+                const data = snap.val();
+                // 將 Firebase 物件轉換為陣列並包含 key
+                orders = data ? Object.keys(data).map(k => ({...data[k], firebaseKey: k})) : [];
+                orders.sort((a,b) => (b.d+b.t).localeCompare(a.d+a.t)); // 排序
+                updateLog(); 
+                renderStatTable();
+            });
+        } else {
+            inv = defaultInv;
+            initUI();
+        }
+    }
+    loadData();
+
+    function syncToDB() {
+        initUI();
+        if(db && firebaseConfig.apiKey !== "請替換為您的API_KEY") {
+            db.ref('inventory').set(inv).catch(e => console.log("雲端同步失敗"));
+        }
+    }
+
+    function initUI() {
+        const area = document.getElementById('item-area'), nav = document.getElementById('navbar');
+        const jumpSelect = document.getElementById('admin-cat-jump');
+        area.innerHTML = ''; nav.innerHTML = '';
+        if(jumpSelect) jumpSelect.innerHTML = '<option value="">快速跳轉分類...</option>';
+        
+        inv.forEach((cat, idx) => {
+            nav.innerHTML += `<div class="nav-btn" onclick="document.getElementById('c${idx}').scrollIntoView()">${cat.cat}</div>`;
+            if(jumpSelect) jumpSelect.innerHTML += `<option value="ac${idx}">${cat.cat}</option>`;
+            
+            let gridHtml = `<div class="cat-title" id="c${idx}">${cat.cat}</div><div class="product-grid">`;
+            if(!cat.items || cat.items.length === 0) {
+                gridHtml += `<div style="color:#999; padding:10px;">此分類暫無商品</div>`;
+            } else {
+                cat.items.forEach(it => {
+                    gridHtml += `<div class="p-btn" onclick="addCart('${it.id}')">
+                        <div class="p-name">${it.id} ${it.n}</div>
+                        <div class="p-price">$${it.p}</div>
+                        <div class="p-stock">存:${it.s}</div>
+                    </div>`;
+                });
+            }
+            area.innerHTML += gridHtml + '</div>';
+        });
+        updateCatSelect();
+        if(document.getElementById('admin-panel').style.display === 'flex') renderAdminTable();
+    }
+
+    // --- 即時紀錄功能 ---
+    function updateLog() {
+        const logArea = document.getElementById('order-log');
+        const today = new Date().toLocaleDateString('zh-TW');
+        const todayOrders = orders.filter(o => o.d === today).slice(0, 10);
+        
+        if(todayOrders.length === 0) {
+            logArea.innerHTML = '<div style="color:#999; padding:10px; text-align:center;">今日尚無交易</div>';
+            return;
+        }
+
+        logArea.innerHTML = todayOrders.map(o => `
+            <div style="border-bottom:1px solid #eee; padding:5px 0; font-size:0.9em;">
+                <span style="color:#888;">[${o.t}]</span> <b>$${o.total}</b> (${o.pay})
+                <div style="color:#666; font-size:0.85em;">${o.items.map(i => i.n).join(', ')}</div>
+            </div>
+        `).join('');
+    }
+
+    // --- 歷史與統計功能 ---
+    function searchHistory(mode) {
+        const resultArea = document.getElementById('history-result-area');
+        let filtered = [];
+        let title = "";
+
+        if(mode === 'day') {
+            const date = document.getElementById('search-date').value;
+            if(!date) return alert("請選擇日期");
+            const dateStr = new Date(date).toLocaleDateString('zh-TW');
+            filtered = orders.filter(o => o.d === dateStr);
+            title = `📅 ${dateStr} 交易紀錄`;
+        } else {
+            const month = document.getElementById('search-month').value; // YYYY-MM
+            if(!month) return alert("請選擇月份");
+            filtered = orders.filter(o => {
+                const parts = o.d.split('/'); // 假設格式是 2026/1/4
+                const oMonth = `${parts[0]}-${parts[1].padStart(2,'0')}`;
+                return oMonth === month;
+            });
+            title = `📊 ${month} 月度統計`;
+        }
+
+        let totalRev = 0, totalProf = 0;
+        let html = `<h3>${title}</h3>`;
+
+        if(filtered.length === 0) {
+            html += "<p>此時段無資料</p>";
+        } else {
+            filtered.forEach(o => {
+                totalRev += o.total;
+                totalProf += (o.profit || 0);
+                html += `
+                <div class="history-card">
+                    <div class="history-del-btn" onclick="deleteOrder('${o.firebaseKey}')">退貨/刪除</div>
+                    <strong>【${o.pay}】總計: $${o.total}</strong> <small>(${o.d} ${o.t})</small><br>
+                    <span style="font-size:0.9em; color:#666;">內容: ${o.items.map(i=>`${i.n}x1`).join(', ')}</span>
+                    ${o.note ? `<br><small style="color:blue;">備註: ${o.note}</small>` : ''}
+                </div>`;
+            });
+            html = `<div style="background:#e8f5e9; padding:10px; border-radius:8px; margin-bottom:10px;">
+                        <b>總營收: $${totalRev}</b> | <b>預估毛利: $${totalProf}</b> | <b>單數: ${filtered.length}</b>
+                    </div>` + html;
+        }
+        resultArea.innerHTML = html;
+    }
+
+    function deleteOrder(key) {
+        if(!db) return alert("本地模式不支援刪除");
+        if(confirm("確定要執行退貨並刪除此紀錄嗎？(注意：此動作不會自動補回庫存，需手動調整)")) {
+            db.ref('orders').child(key).remove()
+              .then(() => alert("已刪除紀錄"))
+              .catch(e => alert("刪除失敗"));
+        }
+    }
+
+    function renderStatTable() {
+        const stats = {};
+        orders.forEach(o => {
+            o.items.forEach(it => {
+                if(it.id === "支出") return;
+                if(!stats[it.n]) stats[it.n] = { qty: 0, amt: 0 };
+                stats[it.n].qty += 1;
+                stats[it.n].amt += it.p;
+            });
+        });
+
+        const sorted = Object.entries(stats).sort((a,b) => b[1].qty - a[1].qty);
+        document.getElementById('stat-tbody').innerHTML = sorted.map(([name, data]) => `
+            <tr>
+                <td style="text-align:left;">${name}</td>
+                <td>${data.qty}</td>
+                <td>$${data.amt}</td>
+            </tr>
+        `).join('');
+    }
+
+    // --- 原有邏輯修正與補強 ---
+    function checkNewCat(val) {
+        if(val === "ADD") { 
+            const n = prompt("請輸入新分類名稱："); 
+            if(n) { 
+                inv.push({cat: n, items: []}); 
+                syncToDB();
+            }
+            document.getElementById('select-cat').selectedIndex = 0;
+        }
+    }
+
+    function deleteCategory(ci) {
+        if(confirm(`⚠️ 確定要刪除「${inv[ci].cat}」及其所有商品？`)) {
+            inv.splice(ci, 1);
+            if(inv.length === 0) inv = [{cat: "預設分類", items: []}]; 
+            syncToDB();
+        }
+    }
+
+    function editCategoryName(ci) {
+        const n = prompt("請修改分類名稱：", inv[ci].cat);
+        if (n) { inv[ci].cat = n; syncToDB(); }
+    }
+
+    function updateCatSelect() {
+        const sel = document.getElementById('select-cat');
+        if(sel) {
+            sel.innerHTML = inv.map(c => `<option value="${c.cat}">${c.cat}</option>`).join('') + 
+                           `<option value="ADD">➕ 新增分類</option>`;
+        }
+    }
+
+    function renderAdminTable() {
+        let html = '';
+        inv.forEach((cat, ci) => {
+            html += `<tr id="ac${ci}" style="background:#eee;">
+                <td colspan="6" style="text-align:left; padding:10px;">
+                    <b>📂 ${cat.cat}</b>
+                    <button class="edit-cat-btn" onclick="editCategoryName(${ci})">✏️</button>
+                    <button class="del-cat-btn" onclick="deleteCategory(${ci})">🗑️</button>
+                </td>
+            </tr>`;
+            (cat.items || []).forEach((it, ii) => {
+                html += `<tr>
+                    <td><span onclick="move(${ci},${ii},-1)" style="cursor:pointer">↑</span> <span onclick="move(${ci},${ii},1)" style="cursor:pointer">↓</span></td>
+                    <td style="text-align:left;"><input type="text" value="${it.n}" onchange="editItem(${ci},${ii},'n',this.value)" class="admin-input-large"></td>
+                    <td><input type="number" value="${it.c}" onchange="editItem(${ci},${ii},'c',this.value)" style="width:50px;"></td>
+                    <td><input type="number" value="${it.p}" onchange="editItem(${ci},${ii},'p',this.value)" style="width:50px;"></td>
+                    <td><input type="number" value="${it.s}" onchange="editItem(${ci},${ii},'s',this.value)" style="width:50px;"></td>
+                    <td><span onclick="delP(${ci},${ii})" class="del-x">✕</span></td>
+                </tr>`;
+            });
+        });
+        document.getElementById('admin-tbody').innerHTML = html;
+    }
+
+    function addNewProduct() {
+        const catN = document.getElementById('select-cat').value;
+        const id = document.getElementById('new-id').value, n = document.getElementById('new-n').value;
+        const c = Number(document.getElementById('new-c').value), p = Number(document.getElementById('new-p').value), s = Number(document.getElementById('new-s').value);
+        if(!n || !catN || catN === "ADD") return alert("請填寫品名並選擇分類");
+        
+        const category = inv.find(v => v.cat === catN);
+        if(category) {
+            if(!category.items) category.items = [];
+            category.items.push({id: id || Date.now().toString().slice(-4), n, c, p, s});
+            syncToDB();
+            ['new-id','new-n','new-c','new-p','new-s'].forEach(f => document.getElementById(f).value='');
+        }
+    }
+
+    function addCart(id) {
+        let target = null;
+        inv.forEach(c => (c.items || []).forEach(i => { if(i.id === id) target = i; }));
+        if(target) { 
+            if(target.s <= 0) { if(!confirm("庫存不足，仍要加入？")) return; }
+            cart.push({...target}); 
+            renderCart(); 
+        }
+    }
+
+    function renderCart() {
+        document.getElementById('cart-list').innerHTML = cart.map((it, i) => `
+            <div class="cart-item"><span>${it.id} ${it.n}</span><b>$${it.p}</b>
+            <span onclick="cart.splice(${i},1);renderCart()" style="color:red; cursor:pointer;">✕</span></div>`).join('');
+        calc();
+    }
+
+    function calc() {
+        const total = cart.reduce((a,b)=>a+b.p, 0) - Number(document.getElementById('discount').value || 0);
+        document.getElementById('final-total').innerText = Math.max(0, total);
+        calcChange();
+    }
+
+    function calcChange() {
+        const t = Number(document.getElementById('final-total').innerText), p = Number(document.getElementById('cash-in').value || 0);
+        document.getElementById('cash-change').innerText = p > t ? p - t : 0;
+    }
+
+    function setPay(m) {
+        currentPay = m;
+        document.getElementById('btn-cash').className = m==='現金'?'pay-btn active':'pay-btn';
+        document.getElementById('btn-elec').className = m==='電支'?'pay-btn active':'pay-btn';
+    }
+
+    function submitOrder() {
+        if(!cart.length) return;
+        const total = Number(document.getElementById('final-total').innerText);
+        const backdateMode = document.getElementById('backdate-mode').checked;
+        const manualDate = document.getElementById('manual-date').value;
+        
+        const dateObj = (backdateMode && manualDate) ? new Date(manualDate) : new Date();
+        
+        const orderData = { 
+            t: new Date().toLocaleTimeString('zh-TW', {hour12:false}), 
+            d: dateObj.toLocaleDateString('zh-TW'),
+            total, 
+            profit: total - cart.reduce((a,b)=>a+(b.c||0), 0), 
+            pay: currentPay, 
+            items: [...cart], 
+            discount: Number(document.getElementById('discount').value || 0), 
+            note: document.getElementById('discount-note').value 
+        };
+        
+        // 扣庫存
+        cart.forEach(item => { 
+            inv.forEach(c => (c.items || []).forEach(i => { if(i.id === item.id) i.s--; })); 
+        });
+        
+        if(db && firebaseConfig.apiKey !== "請替換為您的API_KEY") {
+            db.ref('orders').push(orderData);
+            db.ref('inventory').set(inv);
+            alert("結帳成功！已同步至 Firebase");
+        } else {
+            orders.unshift(orderData);
+            alert("本地結帳成功！(未連接 Firebase)");
+            updateLog();
+        }
+        
+        cart=[]; 
+        document.getElementById('discount').value = '';
+        document.getElementById('discount-note').value = '';
+        document.getElementById('cash-in').value = '';
+        renderCart(); 
+        syncToDB();
+    }
+
+    function addExtraCost() {
+        const amount = prompt("請輸入支出金額：");
+        if (!amount || isNaN(amount)) return;
+        const reason = prompt("支出原因？") || "雜項支出";
+        cart.push({ id: "支出", n: "[支] " + reason, p: 0, c: Number(amount), s: 0 });
+        renderCart();
+    }
+
+    function editItem(ci, ii, k, v) { inv[ci].items[ii][k] = (k==='n'?v:Number(v)); syncToDB(); }
+    function move(ci, ii, dir) { 
+        let items = inv[ci].items; 
+        if(ii+dir>=0 && ii+dir<items.length){ [items[ii], items[ii+dir]]=[items[ii+dir], items[ii]]; renderAdminTable(); syncToDB(); }
+    }
+    function delP(ci, ii) { if(confirm("確定刪除商品？")){ inv[ci].items.splice(ii,1); syncToDB(); } }
+    function toggleAdmin() { const p = document.getElementById('admin-panel'); p.style.display = p.style.display === 'flex' ? 'none' : 'flex'; if(p.style.display === 'flex') renderAdminTable(); }
+    function toggleHistory() { const p = document.getElementById('history-panel'); p.style.display = p.style.display === 'flex' ? 'none' : 'flex'; }
+    function jumpToAdminCat(val) { if(val) document.getElementById(val).scrollIntoView({behavior: "smooth"}); }
+    
+    function backupData() {
+        const blob = new Blob([JSON.stringify({inv, orders}, null, 2)], { type: "application/json" });
+        const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `LittleNook_Backup_${new Date().toLocaleDateString()}.json`; a.click();
+    }
+
+    function exportToExcel() {
+        const data = orders.map(o => ({
+            "日期": o.d, "時間": o.t, "總額": o.total, "毛利": o.profit, "支付方式": o.pay, "備註": o.note, "商品明細": o.items.map(i=>i.n).join(',')
+        }));
+        const ws = XLSX.utils.json_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "Sales");
+        XLSX.writeFile(wb, `Sales_Export_${new Date().toLocaleDateString()}.xlsx`);
+    }
+
+    function syncOfflineData() {
+        if(db) {
+            db.ref('inventory').set(inv);
+            alert("手動同步完成");
+        }
+    }
+</script>
+</body>
+</html>
+
+
